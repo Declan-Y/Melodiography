@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import CanvasDraw from "react-canvas-draw"
 import {useRef} from "react"
