@@ -19,6 +19,8 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
+    "preci": "rm -fr node_modules",
+    "ci": "yarn install --frozen-lockfile"
   },
   "eslintConfig": {
     "extends": [
