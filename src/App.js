@@ -14,13 +14,9 @@ const App = () => {
    
 }
   
-
-
-
-
-
   return (
     <>
+    <input type="text"/>
      <CanvasDraw ref={canvasRef} hideGrid={true} canvasWidth={window.screen.availWidth} canvasHeight={window.screen.availHeight}/>
      <button onClick = {handleClick}>Save</button>
      </>
