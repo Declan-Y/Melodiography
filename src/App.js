@@ -6,7 +6,8 @@ import Button from "./components/Button"
 
 const App = () => {
   const canvasRef = useRef(undefined)
-  const [setTitle] = useState("")
+  const [title, setTitle] = useState("")
+  console.log(title)
 
   
 
