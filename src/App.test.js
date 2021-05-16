@@ -15,6 +15,6 @@ test('types inside input', () => {
 
 test('calls onClick prop when clicked', () => {
   const handleClick = jest.fn()
-  fireEvent.click(screen.getByText(/Save drawing/i))
+  fireEvent.click(getByText('Save drawing'))
   expect(handleClick).toHaveBeenCalledTimes(1)
 })
