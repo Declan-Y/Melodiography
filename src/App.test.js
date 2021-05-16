@@ -7,8 +7,9 @@ it("renders without crashing", () => {
 })
 
 test('types inside input', () => {
+  render(<App/>)
 
-  userEvent.type(screen.getByRole('textbox'), 'Hello, World!')
+  userEvent.type(screen.getBy('textbox'), 'Hello, World!')
   expect(screen.getByRole('textbox')).toHaveValue('Hello, World!')
 })
 
