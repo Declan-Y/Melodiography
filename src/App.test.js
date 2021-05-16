@@ -13,8 +13,9 @@ test('types inside input', () => {
   expect(screen.getByRole('textbox')).toHaveValue('Hello, World!')
 })
 
-test('calls onClick prop when clicked', () => {
+test('calls onClick prop when clicked', async () => {
+  const { getByText } = render(App, { name: 'App' })
   const handleClick = jest.fn()
-  fireEvent.click(getByText('Save drawing'))
+  await fireEvent.click(getByText('Save drawing'))
   expect(handleClick).toHaveBeenCalledTimes(1)
 })
