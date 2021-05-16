@@ -28,4 +28,5 @@ jobs:
     - run: yarn preci
     - run: yarn ci
     - run: yarn run build --if-present
+    - run: yarn test
 
