@@ -4,7 +4,7 @@ import CanvasDraw from "react-canvas-draw"
 import {useRef} from "react"
 
 const App = () => {
-  const canvasRef = useRef(null)
+  const canvasRef = useRef(undefined)
 
   
 
