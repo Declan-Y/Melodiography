@@ -9,6 +9,6 @@ it("renders without crashing", () => {
 test('types inside input', () => {
   document.body.innerHTML = `<input/>`
 
-  userEvent.type(screen.getByRole('text'), 'Hello, World!')
-  expect(screen.getByRole('text')).toHaveValue('Hello, World!')
+  userEvent.type(screen.getByRole('textbox'), 'Hello, World!')
+  expect(screen.getByRole('textbox')).toHaveValue('Hello, World!')
 })
