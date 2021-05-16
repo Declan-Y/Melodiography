@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import App from './App';
+import Button from "./components/Button"
 
 it("renders without crashing", () => {
   render(<App/>)
@@ -13,9 +14,11 @@ test('types inside input', () => {
   expect(screen.getByRole('textbox')).toHaveValue('Hello, World!')
 })
 
-test('calls onClick prop when clicked', async () => {
-  const handleClick = jest.fn()
-  render(<App/>)
-  await fireEvent.click(screen.getByText(/Save drawing/i))
-  expect(handleClick).toHaveBeenCalledTimes(1)
+test('calls onClick when clicked', () => {
+  const handleClickMock = jest.fn()
+  render(<Button handleClick={handleClickMock}/>)
+  
+  
+  fireEvent.click(screen.getByText(/Save drawing/i))
+  expect(handleClickMock).toHaveBeenCalledTimes(1)
 })
