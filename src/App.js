@@ -25,6 +25,7 @@ const handleUndo = () => {
 const handleClear = () => {
 
   canvasRef.current.clear()
+}
  
 const handleChange = (e) => {
   setTitle(e.target.value)
