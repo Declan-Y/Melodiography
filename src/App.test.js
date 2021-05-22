@@ -16,7 +16,7 @@ test('types inside input', () => {
 
 test('calls onClick when clicked', () => {
   const handleClickMock = jest.fn()
-  render(<Button handleClick={handleClickMock}/>)
+  render(<Button handleClick={handleClickMock} name="Save drawing"/>)
   
   
   fireEvent.click(screen.getByText(/Save drawing/i))
