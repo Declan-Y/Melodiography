@@ -3,7 +3,7 @@ import Soundfont from "soundfont-player"
 
 const MIDIPlayer = (file) => {
     const AudioContext = window.AudioContext || window.webkitAudioContext || false;
-    const ac = new AudioContext
+    const ac = new AudioContext()
 
     Soundfont.instrument(ac, 'marimba').then((instrument) => {
     const player = new MidiPlayer.Player((e) => {
