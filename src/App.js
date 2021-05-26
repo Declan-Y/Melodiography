@@ -1,10 +1,30 @@
 
 import './App.css';
 import CanvasDraw from "react-canvas-draw"
-import {useRef, useState} from "react"
+import {useRef, useState, useEffect} from "react"
 import Button from "./components/Button"
+import MIDIPlayer from "./components/MIDIPlayer"
 
 const App = () => {
+
+
+  useEffect(
+    () => {
+
+
+      const fetchData = async () => {
+      const midi = await fetch("/generate")
+      const buffer = await midi.arrayBuffer()
+      console.log(buffer)
+      MIDIPlayer(buffer)
+      }
+      fetchData()
+
+
+    }, []
+
+
+  )
   const canvasRef = useRef(undefined)
   const [title, setTitle] = useState("")
   console.log(title)
