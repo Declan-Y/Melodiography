@@ -53,6 +53,7 @@ const handleChange = (e) => {
   
   return (
     <div className="flex flex-col items-center">
+    
     <input type="text" onChange={handleChange} className="mb-4 mt-4 border border-black rounded-md"/>
      <CanvasDraw ref={canvasRef} hideGrid={true} canvasWidth={window.screen.availWidth/2} canvasHeight={window.screen.availHeight/2} className="border border-black rounded-md mb-4"/>
      <div className="flex justify-evenly w-1/4">

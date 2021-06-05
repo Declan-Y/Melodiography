@@ -1,4 +1,11 @@
-const Button = ({handleClick, name}) => {
+
+type Props = {
+
+    handleClick: any
+    name: String
+}
+
+const Button = ({handleClick, name}: Props) => {
 
     return (
 
