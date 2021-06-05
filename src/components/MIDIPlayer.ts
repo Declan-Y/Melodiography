@@ -1,12 +1,11 @@
 import MidiPlayer from "midi-player-js"
 import Soundfont from "soundfont-player"
 
-const MIDIPlayer = (file) => {
-    const AudioContext = window.AudioContext || window.webkitAudioContext || false;
+const MIDIPlayer = (file: ArrayBuffer) => {
     const ac = new AudioContext()
 
     Soundfont.instrument(ac, 'marimba').then((instrument) => {
-    const player = new MidiPlayer.Player((e) => {
+    const player = new MidiPlayer.Player((e: any) => {
         if (e.name === 'Note on'){
             instrument.play(e.noteName, ac.currentTime, {gain:e.velocity/100, loop: true, attack: 0.1});
 
