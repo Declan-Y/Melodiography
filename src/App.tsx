@@ -1,7 +1,7 @@
 
 import './App.css';
 import CanvasDraw from "react-canvas-draw"
-import {useRef, useState, useEffect} from "react"
+import React, {useRef, useState, useEffect, MutableRefObject} from "react"
 import Button from "./components/Button"
 import MIDIPlayer from "./components/MIDIPlayer"
 
@@ -25,7 +25,7 @@ const App = () => {
 
 
   )
-  const canvasRef = useRef(undefined)
+  const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
   const [title, setTitle] = useState("")
   console.log(title)
 
@@ -47,7 +47,7 @@ const handleClear = () => {
   canvasRef.current.clear()
 }
  
-const handleChange = (e) => {
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   setTitle(e.target.value)
 }
   
