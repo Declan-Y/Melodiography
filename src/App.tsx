@@ -1,5 +1,4 @@
 
-import './App.css';
 import CanvasDraw from "react-canvas-draw"
 import React, {useRef, useState, useEffect, MutableRefObject} from "react"
 import Button from "./components/Button"
@@ -15,7 +14,6 @@ const App = () => {
       const fetchData = async () => {
       const midi = await fetch("/generate")
       const buffer = await midi.arrayBuffer()
-      console.log(buffer)
       MIDIPlayer(buffer)
       }
       fetchData()
@@ -27,13 +25,17 @@ const App = () => {
   )
   const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
   const [title, setTitle] = useState("")
-  console.log(title)
 
   
 
-  const handleClick = () => {
+  const handleClick =  async () => {
+    await fetch("/save", {
+      method: "POST",
+      body: JSON.stringify({"title":title})
+    })
 
-    console.log(canvasRef.current.getSaveData());
+
+
    
 }
 
