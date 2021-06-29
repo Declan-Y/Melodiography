@@ -34,6 +34,13 @@ const App = () => {
       body: JSON.stringify({"title":title})
     })
 
+    const responseMelody = await fetch(`/put-presigned-url?bucket=melodies&object=${title}`)
+    const presignedMelodyPutUrl = await responseMelody.json()
+    const responseDrawing = await fetch(`/put-presigned-url?bucket=images&object=${title}`)
+    const presignedDrawingPutUrl = await responseDrawing.json()
+    console.log(presignedMelodyPutUrl)
+    console.log(presignedDrawingPutUrl)
+
 
 
    
