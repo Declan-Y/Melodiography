@@ -5,6 +5,9 @@ import Button from "./components/Button"
 import MIDIPlayer from "./components/MIDIPlayer"
 
 const App = () => {
+  const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
+  const [title, setTitle] = useState("")
+  const [midiFile, setMidiFile] = useState<ArrayBuffer>()
 
 
   useEffect(
@@ -14,6 +17,8 @@ const App = () => {
       const fetchData = async () => {
       const midi = await fetch("/generate")
       const buffer = await midi.arrayBuffer()
+      setMidiFile(buffer)
+
       MIDIPlayer(buffer)
       }
       fetchData()
@@ -23,8 +28,7 @@ const App = () => {
 
 
   )
-  const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
-  const [title, setTitle] = useState("")
+  
 
   
 
@@ -38,9 +42,14 @@ const App = () => {
     const presignedMelodyPutUrl = await responseMelody.json()
     const responseDrawing = await fetch(`/put-presigned-url?bucket=images&object=${title}`)
     const presignedDrawingPutUrl = await responseDrawing.json()
-    console.log(presignedMelodyPutUrl)
-    console.log(presignedDrawingPutUrl)
-
+    await fetch(presignedDrawingPutUrl, {
+      method: "PUT",
+      body: JSON.stringify(canvasRef.current.getSaveData())
+    })
+    await fetch(presignedMelodyPutUrl, {
+      method: "PUT",
+      body: midiFile
+    })
 
 
    
