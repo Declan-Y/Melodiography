@@ -1,11 +1,14 @@
 
-import './App.css';
 import CanvasDraw from "react-canvas-draw"
 import React, {useRef, useState, useEffect, MutableRefObject} from "react"
 import Button from "./components/Button"
 import MIDIPlayer from "./components/MIDIPlayer"
+import {v4 as uuidv4} from "uuid"
 
 const App = () => {
+  const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
+  const [title, setTitle] = useState("")
+  const [midiFile, setMidiFile] = useState<ArrayBuffer>()
 
 
   useEffect(
@@ -15,7 +18,8 @@ const App = () => {
       const fetchData = async () => {
       const midi = await fetch("/generate")
       const buffer = await midi.arrayBuffer()
-      console.log(buffer)
+      setMidiFile(buffer)
+
       MIDIPlayer(buffer)
       }
       fetchData()
@@ -25,15 +29,32 @@ const App = () => {
 
 
   )
-  const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
-  const [title, setTitle] = useState("")
-  console.log(title)
+  
 
   
 
-  const handleClick = () => {
+  const handleClick =  async () => {
+    const uuid = uuidv4()
+    
+    await fetch("/save", {
+      method: "POST",
+      body: JSON.stringify({"title":title})
+    })
 
-    console.log(canvasRef.current.getSaveData());
+    const responseMelody = await fetch(`/put-presigned-url?bucket=melodies&object=${title}-${uuid}`)
+    const presignedMelodyPutUrl = await responseMelody.json()
+    const responseDrawing = await fetch(`/put-presigned-url?bucket=images&object=${title}-${uuid}`)
+    const presignedDrawingPutUrl = await responseDrawing.json()
+    await fetch(presignedDrawingPutUrl, {
+      method: "PUT",
+      body: JSON.stringify(canvasRef.current.getSaveData())
+    })
+    await fetch(presignedMelodyPutUrl, {
+      method: "PUT",
+      body: midiFile
+    })
+
+
    
 }
 
