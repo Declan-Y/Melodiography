@@ -3,6 +3,7 @@ import CanvasDraw from "react-canvas-draw"
 import React, {useRef, useState, useEffect, MutableRefObject} from "react"
 import Button from "./components/Button"
 import MIDIPlayer from "./components/MIDIPlayer"
+import {v4 as uuidv4} from "uuid"
 
 const App = () => {
   const canvasRef: undefined | MutableRefObject<any> = useRef(undefined)
@@ -33,14 +34,16 @@ const App = () => {
   
 
   const handleClick =  async () => {
+    const uuid = uuidv4()
+    
     await fetch("/save", {
       method: "POST",
       body: JSON.stringify({"title":title})
     })
 
-    const responseMelody = await fetch(`/put-presigned-url?bucket=melodies&object=${title}`)
+    const responseMelody = await fetch(`/put-presigned-url?bucket=melodies&object=${title}-${uuid}`)
     const presignedMelodyPutUrl = await responseMelody.json()
-    const responseDrawing = await fetch(`/put-presigned-url?bucket=images&object=${title}`)
+    const responseDrawing = await fetch(`/put-presigned-url?bucket=images&object=${title}-${uuid}`)
     const presignedDrawingPutUrl = await responseDrawing.json()
     await fetch(presignedDrawingPutUrl, {
       method: "PUT",
